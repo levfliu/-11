@@ -51,7 +51,7 @@
           />
         </div>
 
-        <div class="down-icon">
+        <div class="down-icon" @click="clickDown()">
           <a-icon type="down-circle" theme="twoTone" twoToneColor="#1890FF" />
         </div>
       </el-col>
@@ -119,6 +119,11 @@ export default {
     startAnimation() {
       this.startCenterAnimation();
       this.startSideEnterAnimation();
+    },
+    clickDown() {
+      this.startSideLeaveAnimation().then(() => {
+        this.$router.push({ name: "overview" });
+      });
     },
     addMouseWheelEvent() {
       const el = this.$el;
@@ -332,6 +337,7 @@ export default {
     animation-duration: 1s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+    cursor: pointer;
 
     .anticon {
       transform: scale(2);

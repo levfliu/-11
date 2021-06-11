@@ -110,6 +110,7 @@ export default {
             display: flex;
             justify-content: center;
             padding: 0px;
+            overflow: hidden;
         }
         .el-aside {
             border-right: solid 1px #e6e6e6;
