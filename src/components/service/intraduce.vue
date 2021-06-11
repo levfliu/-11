@@ -122,6 +122,8 @@ export default {
     },
     clickDown() {
       this.startSideLeaveAnimation().then(() => {
+        this.$store.commit('headerIndex', 0)
+        this.$store.commit('menuIndex', 0)
         this.$router.push({ name: "overview" });
       });
     },
@@ -133,6 +135,8 @@ export default {
         if (down) {
           console.log("鼠标滚轮向下---------");
           this.startSideLeaveAnimation().then(() => {
+            this.$store.commit('headerIndex', 0)
+            this.$store.commit('menuIndex', 0)
             this.$router.push({ name: "overview" });
           });
         } else {
@@ -314,27 +318,13 @@ export default {
     --insiteRotate: 0;
   }
 
-  @keyframes bounceY {
-    0% {
-      bottom: 6px;
-    }
-
-    50% {
-      bottom: 24px;
-    }
-
-    100% {
-      bottom: 6px;
-    }
-  }
-
   .down-icon {
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    animation-name: bounceY;
-    animation-duration: 1s;
+    animation-name: shakeY;
+    animation-duration: 4s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
     cursor: pointer;
