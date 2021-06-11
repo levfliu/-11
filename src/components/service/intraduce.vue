@@ -6,7 +6,7 @@
     <el-row :gutter="20" class="intraduce-detail">
       <el-col :span="10">
         <div class="intraduce-two-cards">
-          <div class="intraduce-card el-row">
+          <div class="intraduce-card el-row" ref="sideLeft1">
             <div>
               <div class="intraduce-card-title">数据构建</div>
               <span class="intraduce-card-span"></span>
@@ -17,7 +17,10 @@
             </div>
             <div><img src="../../../static/images/card-left-top.png" /></div>
           </div>
-          <div class="intraduce-card el-row intraduce-card-bottom">
+          <div
+            class="intraduce-card el-row intraduce-card-bottom"
+            ref="sideLeft2"
+          >
             <div>
               <div class="intraduce-card-title">数据分析</div>
               <span class="intraduce-card-span"></span>
@@ -54,7 +57,7 @@
       </el-col>
       <el-col :span="10">
         <div class="intraduce-two-cards">
-          <div class="intraduce-card el-row">
+          <div class="intraduce-card el-row" ref="sideRight1">
             <div><img src="../../../static/images/card-right-top.png" /></div>
             <div class="intraduce-card-right">
               <div class="intraduce-card-title intraduce-card-align-right">
@@ -73,7 +76,10 @@
               </div>
             </div>
           </div>
-          <div class="intraduce-card el-row intraduce-card-bottom">
+          <div
+            class="intraduce-card el-row intraduce-card-bottom"
+            ref="sideRight2"
+          >
             <div>
               <img src="../../../static/images/card-right-bottom.png" />
             </div>
@@ -112,6 +118,92 @@ export default {
   methods: {
     startAnimation() {
       this.startCenterAnimation();
+      this.startSideEnterAnimation();
+    },
+    addMouseWheelEvent() {
+      const el = this.$el;
+      const onMouseWheel = (ev) => {
+        var ev = ev || window.event;
+        const down = ev.wheelDelta ? ev.wheelDelta < 0 : ev.detail > 0;
+        if (down) {
+          console.log("鼠标滚轮向下---------");
+          this.startSideLeaveAnimation().then(() => {
+            this.$router.push({ name: "overview" });
+          });
+        } else {
+          // console.log("鼠标滚轮向上++++++++++");
+        }
+        if (ev.preventDefault) {
+          /*FF 和 Chrome*/
+          ev.preventDefault(); // 阻止默认事件
+        }
+        return false;
+      };
+
+      el.addEventListener("mousewheel", onMouseWheel);
+      el.addEventListener("DOMMouseScroll", onMouseWheel);
+
+      this.$once("hook:beforeDestroy", () => {
+        el.removeEventListener("mousewheel", onMouseWheel);
+        el.removeEventListener("DOMMouseScroll", onMouseWheel);
+      });
+    },
+    startSideEnterAnimation() {
+      const sideLeft1 = this.$refs.sideLeft1;
+      const sideLeft2 = this.$refs.sideLeft2;
+      const sideRight1 = this.$refs.sideRight1;
+      const sideRight2 = this.$refs.sideRight2;
+
+      const intraduceCenter = this.$refs.intraduceCenter;
+
+      return Promise.all([
+        this.animateCSS(sideLeft1, "backInLeft"),
+        this.animateCSS(sideLeft2, "backInLeft"),
+        this.animateCSS(sideRight1, "backInRight"),
+        this.animateCSS(sideRight2, "backInRight"),
+        this.animateCSS(intraduceCenter, "rotateIn"),
+      ]);
+    },
+    startSideLeaveAnimation() {
+      const sideLeft1 = this.$refs.sideLeft1;
+      const sideLeft2 = this.$refs.sideLeft2;
+      const sideRight1 = this.$refs.sideRight1;
+      const sideRight2 = this.$refs.sideRight2;
+
+      const intraduceCenter = this.$refs.intraduceCenter;
+
+      return Promise.all([
+        this.animateCSS(sideLeft1, "backOutLeft"),
+        this.animateCSS(sideLeft2, "backOutLeft"),
+        this.animateCSS(sideRight1, "backOutRight"),
+        this.animateCSS(sideRight2, "backOutRight"),
+        this.animateCSS(intraduceCenter, "rotateOut"),
+      ]);
+    },
+    animateCSS(element, animationName) {
+      // animate__animated animate__backInLeft
+      return new Promise((resolve, reject) => {
+        try {
+          const node =
+            typeof element === "string"
+              ? document.querySelector(element)
+              : element;
+          node.classList.add("animate__animated", `animate__${animationName}`);
+
+          function handleAnimationEnd() {
+            node.classList.remove(
+              "animate__animated",
+              `animate__${animationName}`
+            );
+            node.removeEventListener("animationend", handleAnimationEnd);
+            resolve();
+          }
+
+          node.addEventListener("animationend", handleAnimationEnd);
+        } catch (error) {
+          reject(error);
+        }
+      });
     },
     startCenterAnimation() {
       const timer = setInterval(() => {
@@ -152,6 +244,8 @@ export default {
   created() {},
   mounted() {
     this.startAnimation();
+
+    this.addMouseWheelEvent();
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <el-menu class="el-menu-vertical-demo el-menu-bzk">
+    <el-menu class="el-menu-vertical-demo el-menu-bzk animate__animated animate__slideInUp">
         <el-menu-item v-for="(item, menuIndex) of menuItem" :index="item.icon" :key="menuIndex" @click="click(menuIndex)"
             v-bind:class="{
                 'button-active': menuIndex === $store.getters.menuIndex

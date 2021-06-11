@@ -1,5 +1,5 @@
 <template>
-    <div class="overview">
+    <div class="overview animate__animated animate__slideInUp">
         <el-row :gutter="20" class="overview-detail">
             <el-col :span="6" v-for="(func, index) of systemFunction" :key="index">
                 <div class="overview-function-card" v-show="func.showDetail" @mouseover="showList(index)">

@@ -11,6 +11,9 @@ import '../static/css/element-variables.scss'
 import VueClipboard from 'vue-clipboard2'
 import 'ant-design-vue/dist/antd.css'
 import Antd from 'ant-design-vue'
+
+import "animate.css";
+
 // 设置语言
 locale.use(lang)
 

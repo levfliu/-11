@@ -4,7 +4,7 @@
             <img class="bzk-head-navigation-icon" height="20px" width="20px" src="/static/images/menu.png" title="功能导航" >
             <system-navi></system-navi>
         </div>
-        <div class="row bzk-logo">
+        <div class="row bzk-logo" @click="clickLogo()">
             <img height="40" width="95" src="/static/images/console-logo.png" title="百展云 — 低代码开发平台">
             <div>百展客云展平台</div>
         </div>
@@ -71,6 +71,9 @@ export default {
         this.$store.commit('menuIndex', -1)
     },
     methods: {
+      clickLogo() {
+        this.$router.push({name: 'intraduce'})
+      },
         openNavi () {
             this.$store.commit('openNavi', true)
         },
@@ -111,6 +114,7 @@ export default {
         background: #1e2940;
         .bzk-logo {
             margin: 5px 30px;
+            cursor: pointer;
         }
         .bzk-head-menu {
             flex: 1;
