@@ -11,7 +11,11 @@
       >
     </div>
     <br />
-    <viewListPage :view="view" :formItemList="formItemList"></viewListPage>
+    <viewListPage
+      :objectId="objectId"
+      :viewId="viewId"
+      :formName="formName"
+    ></viewListPage>
   </div>
 </template>
 
@@ -21,34 +25,14 @@ export default {
   data() {
     return {
       objectId: "",
+      viewId: "",
+      formName: "",
+      formItemList: [],
+      view: {},
     };
   },
   components: { viewListPage },
-  computed: {
-    view() {
-      const view = this.$store.getters.views.filter(
-        (i) => this.$route.query.viewId == i.id
-      );
-      if (view.length == 0) return {};
-      else return view[0];
-    },
-    formItemList() {
-      var formItemList = JSON.parse(
-        JSON.stringify(this.$store.getters.formItemList)
-      );
-      for (var item in formItemList) {
-        for (var key in formItemList[item]) {
-          let _key = key.split("_")[0];
-          formItemList[item][_key] = formItemList[item][key];
-        }
-      }
-      if (this.view.filter_fill_line && formItemList.length < 10) {
-        formItemList.push(...new Array(10 - formItemList.length));
-        console.log(formItemList);
-      }
-      return formItemList;
-    },
-  },
+  computed: {},
   methods: {
     addOneLine() {
       const url =
@@ -62,13 +46,13 @@ export default {
     view(_new) {},
   },
   mounted() {
-    this.$store.commit("objectId", this.$route.query.objectId);
-    const formObject = this.$store.getters.formObject;
-    formObject.id = this.$route.query.objectId;
-    formObject.name = this.$route.query.formName;
-    this.$store.dispatch("getViews").then((i) => {
-      this.$store.dispatch("formItemListDetail");
-    });
+    this.objectId = this.$route.query.objectId;
+    this.viewId = this.$route.query.viewId;
+    this.formName = this.$route.query.formName;
+    // this.$store.commit("objectId", this.$route.query.objectId);
+    // const formObject = this.$store.getters.formObject;
+    // formObject.id = this.$route.query.objectId;
+    // formObject.name = this.$route.query.formName;
   },
 };
 </script>

@@ -24,17 +24,17 @@ const actions = {
             console.log(err)
         })
     },
-    getViews: ({ commit }) => {
+    getViews: ({ commit }, id) => {
         var params = {
             jsonFilter: {
-                objectId: state.objectId
+                objectId: id || state.objectId
             }
         }
         return new Promise((resolve, reject) => {
             FormView('queryFormView', params)
                 .then(resp => {
                     commit('views', resp)
-                    resolve()
+                    resolve(resp)
                 })
                 .catch(err => {
                     console.log(err)

@@ -72,15 +72,19 @@ const actions = {
                 catalogId: catalog
             }
         }
+        return new Promise((resolve, reject) => {
         queryFormRecord('queryForm/5de2ab2b00b5f31ff6d54a1dc7ee7fb2/5b174e99930cb2e0101df7d3', params)
             .then(resp => {
                 commit('serviceAddFormRecord', {
                     type: 18,
                     records: resp})
+                resolve(resp)
             })
             .catch(err => {
                 console.log(err)
+                reject(err)
             })
+        })
     },
     deleteForm: ({ commit }, formId) => {
         var params = {
@@ -189,7 +193,10 @@ const mutations = {
         if (!data.records) {
             data.records = []
         }
-
+        if (typeof(service) == "undefined")
+        {
+            return;
+        }
         service.serviceRecords = []
         service.serviceRecords = service.serviceRecords.concat(data.records)
         state.serviceType = -1

@@ -205,6 +205,27 @@ const state = {
 }
 
 const actions = {
+    formItemListDetailFromItem: ({ commit }, object) => {
+        var params = {
+            objectId: object.id,
+        }
+        return new Promise((resolve, reject) => {
+            formDataAction("queryList/" + object.name, params)
+                .then(resp => {
+                    if (resp.resCode == 0) {
+                        resolve(resp.result)
+                    }
+                    else {
+                        reject()
+                    }
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject()
+                })
+        })
+
+    },
     formItemListDetail: ({ commit }) => {
         var params = {
             objectId: state.formObject.id,

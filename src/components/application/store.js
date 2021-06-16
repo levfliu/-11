@@ -1,4 +1,4 @@
-import { FormView, fields } from '../../util/server.js'
+import { insertFormRecord, updateFormRecord, queryFormRecord, formDataAction, FormView } from '../../util/server.js'
 import { Message } from 'element-ui'
 
 const siderMenu = [
@@ -898,6 +898,22 @@ const state = {
 }
 
 const actions = {
+    applicationGetViews: ({ commit }, catalog) => {
+        var params = {
+            jsonFilter: {
+                catalog_id: catalog
+            }
+        }
+        return new Promise((resolve, reject) => {
+            FormView('queryFormView', params)
+                .then(resp => {
+                    resolve(resp)
+                })
+                .catch(err => {
+                    reject(err)
+                })
+        })
+    }
 
 }
 
