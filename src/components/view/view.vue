@@ -531,7 +531,7 @@
                         <el-button slot="append" v-clipboard:copy="listPage" v-clipboard:success="copy" >复制</el-button>
                      </el-input></div><br>
             <div>
-                     新增页<el-input disabled v-model="addPage">                         
+                     新增页<el-input disabled v-model="addPage">                      
                         <el-button slot="append" v-clipboard:copy="addPage" v-clipboard:success="copy" >复制</el-button>
                      </el-input></div><br>
             <div>
@@ -630,11 +630,11 @@ export default {
             return "已配置"+this.editView.variables.length+"个变量"
         },
         addPage(){
-            return window.location.href.split("#")[0]+"#/form/"+this.$route.query.formId
+            return window.location.host+"/form/"+this.$route.query.formId
         },
         listPage(){
-            return window.location.href.split("#")[0]
-            +"#/viewShow?objectId="
+            return window.location.host
+            +"/viewShow?objectId="
             +this.$route.query.formId
             +"&viewId="
             +this.$store.getters.viewId
@@ -642,14 +642,14 @@ export default {
             +this.$route.query.formName
         },
         detailPage(){
-            return window.location.href.split("#")[0]
-            +"#/form/"+this.$route.query.formId
+            return window.location.host
+            +"/form/"+this.$route.query.formId
             +"&type=detail&recordId="
             +"${recordId}"
         },
         editPage(){
-            return window.location.href.split("#")[0]
-            +"#/form/"+this.$route.query.formId
+            return window.location.host
+            +"/form/"+this.$route.query.formId
             +"&type=update&recordId="
             +"${recordId}"
         }
@@ -670,6 +670,7 @@ export default {
           });
         },
         onRouterShow(){
+            console.log(123121);
             this.routerShow=true;
         },
         onButtonConfigShow(i){

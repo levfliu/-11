@@ -123,6 +123,7 @@ export default {
         view_name: "新增视图",
         id: "e4f90c0a9d87427297388119c5283a37",
         objectId: "44eb5c42-fe24-4905-b4e3-1329ff565467",
+        formName:"表单名字",
         data_auth_type: "3",
         is_show: true,
         catalog_id: "default",
@@ -188,7 +189,8 @@ export default {
       };
       newView.id = guid();
       newView.objectId = this.$store.getters.objectId;
-      this.$store.commit("pushView", newView);
+      newView.formName = this.$route.query.formName;
+    //   this.$store.commit("pushView", newView);
       this.$store.commit("editView", newView);
       this.$store.commit("viewId", newView.id);
       //   this.$router.push({

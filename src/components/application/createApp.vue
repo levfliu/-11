@@ -4,7 +4,7 @@
       <div class="left">
         <i class="back el-icon-back"></i>
         <i class="app el-icon-menu"></i>
-        <span class="title_text">应用设计</span>
+        <span class="title_text" @click="clearViewList">应用设计</span>
         <span class="vertical_line">|</span>
         <div class="device_choose">
           <span><i class="el-icon-mobile-phone"></i></span>
@@ -57,36 +57,6 @@
         <a-layout>
           <a-layout-content>
             <div class="content">
-              <div v-if="viewList.length !== 0" class="view_list">
-                <viewListPage v-for="i in view_list" :key="i.id"></viewListPage>
-              </div>
-              <div v-else class="application_edit_page">
-                <div
-                  class="empty-page"
-                  style="
-                    width: 100%;
-                    height: 100%;
-                    margin: 0px;
-                    padding-top: 16px;
-                    padding-left: 24px;
-                    padding-right: 24px;
-                    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjk5N0NGRkEwOTFCQzExRUE5MzVDQkI4MEYwNUY5MzJGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjk5N0NGRkExOTFCQzExRUE5MzVDQkI4MEYwNUY5MzJGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTk3Q0ZGOUU5MUJDMTFFQTkzNUNCQjgwRjA1RjkzMkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTk3Q0ZGOUY5MUJDMTFFQTkzNUNCQjgwRjA1RjkzMkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6faKXIAAAApUlEQVR42uzaOw7DIBCE4SVaRAkd1/UxOQaUPCQicgEsNyHRP/XI0lesmMImpXR572WXMYao6rG9UopoCEFijNtyrVWcc8f2jDHykj8KGDBgwIA5Ltp7/zxMu7TWbn3wW73lUGvtrRd25eTecnAzYMCAAQOGBcAC4GbAgAEDBgwLgAXAzYABAwYMGBYAC4CbAQMGDBgwDxZAzlnmnNviL/wJ+BZgANIVh8qoksJeAAAAAElFTkSuQmCC');
-                    background-repeat: repeat;
-                    background-color: rgb(240, 242, 245);
-                    border-radius: 0px;
-                  "
-                >
-                  <img
-                    src="./assets/empty_app.460f4397.png"
-                    width="400"
-                    height="271"
-                  />
-                  <div class="empty-title">
-                    选择模板构建页面，可以轻松的完成应用构建哦！
-                  </div>
-                  <div class="empty-btn">选择页面模板</div>
-                </div>
-              </div>
               <div class="left_drawer">
                 <a-drawer
                   placement="left"
@@ -103,6 +73,44 @@
                 </a-drawer>
               </div>
               <div class="right_drawer"></div>
+              <div class="application_edit_page">
+                <div
+                  class="empty-page"
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    margin: 0px;
+                    padding-top: 16px;
+                    padding-left: 24px;
+                    padding-right: 24px;
+                    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAAAzCAYAAAA6oTAqAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjk5N0NGRkEwOTFCQzExRUE5MzVDQkI4MEYwNUY5MzJGIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjk5N0NGRkExOTFCQzExRUE5MzVDQkI4MEYwNUY5MzJGIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTk3Q0ZGOUU5MUJDMTFFQTkzNUNCQjgwRjA1RjkzMkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTk3Q0ZGOUY5MUJDMTFFQTkzNUNCQjgwRjA1RjkzMkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6faKXIAAAApUlEQVR42uzaOw7DIBCE4SVaRAkd1/UxOQaUPCQicgEsNyHRP/XI0lesmMImpXR572WXMYao6rG9UopoCEFijNtyrVWcc8f2jDHykj8KGDBgwIA5Ltp7/zxMu7TWbn3wW73lUGvtrRd25eTecnAzYMCAAQOGBcAC4GbAgAEDBgwLgAXAzYABAwYMGBYAC4CbAQMGDBgwDxZAzlnmnNviL/wJ+BZgANIVh8qoksJeAAAAAElFTkSuQmCC');
+                    background-repeat: repeat;
+                    background-color: rgb(240, 242, 245);
+                    border-radius: 0px;
+                  "
+                >
+                  <div v-if="viewList.length !== 0" class="view_list">
+                    <viewListPage
+                      v-for="i in viewList"
+                      :key="i.id"
+                      :objectId="i.objectId"
+                      :viewId="i.viewId"
+                      :formName="i.formName"
+                    ></viewListPage>
+                  </div>
+                  <div v-else class="default_bkgrd">
+                    <img
+                      src="./assets/empty_app.460f4397.png"
+                      width="400"
+                      height="271"
+                    />
+                    <div class="empty-title">
+                      选择模板构建页面，可以轻松的完成应用构建哦！
+                    </div>
+                    <div class="empty-btn">选择页面模板</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </a-layout-content>
         </a-layout>
@@ -249,16 +257,25 @@ export default {
     };
   },
   methods: {
+    clearViewList() {
+      this.viewList = [];
+    },
     chooseOne(i) {
-      console.log(i);
-      this.viewList.push({
-        objectId: "e2769fe7-87d0-4d15-9df8-033111196392",
-        viewId: "2ee5bb53-2b73-4ce4-975c-b15b6866f89c",
-        formName: "数据4",
-      });
+      console.log(i.object);
+      var formName = "暂无数据";
+      const oneView = {
+        objectId: i.objectId,
+        viewId: i.id,
+        formName,
+      };
+      if (i.hasOwnProperty("object")) {
+        oneView.formName = i.object.name;
+      }
+      this.viewList.push(oneView);
     },
     onLeftDrawerShow(i) {
       this.leftDrawerShow = true;
+      // 加载treedata
     },
     onLeftDrawerClose() {
       this.leftDrawerShow = false;
@@ -337,19 +354,19 @@ export default {
   mounted() {
     setTimeout(() => {
       this.leftDrawerShow = true;
-      this.initPageShow = true;
+      //   this.initPageShow = true;
     }, 1000);
     // 获取所有的视图view
     // 1先获取所有form id，组成数组
-    this.$store.dispatch("getForms", "defaultTeam").then((i) => {
-      let formIds = new Array();
-      i.forEach((element) => {
-        formIds.push(element.id);
-      });
-      console.log(formIds);
-      // 2获取了所有id，接下来获取所有视图列表id，把所有试图列表拍平到一个数组
-    });
-    //
+    // this.$store.dispatch("getForms", "defaultTeam").then((i) => {
+    //   let formIds = new Array();
+    //   i.forEach((element) => {
+    //     formIds.push(element.id);
+    //   });
+    //   console.log(formIds);
+    //   // 2获取了所有id，接下来获取所有视图列表id，把所有试图列表拍平到一个数组
+    // });
+    // //
 
     if (!this.$route.query.catalog || this.$route.query.catalog === null) {
       this.$store.commit("serviceCatalog", "defaultTeam");

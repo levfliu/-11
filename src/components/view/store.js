@@ -88,11 +88,15 @@ const actions = {
                 })
         } else {
             params = {
-                record: state.addTrigger
+                jsonDocs: state.editView
             }
             FormView('addFormView', params)
                 .then(resp => {
                     commit('pushView', resp)
+                    Message({
+                        message: '添加成功',
+                        type: 'success'
+                    })
                 })
                 .catch(err => {
                     console.log(err)

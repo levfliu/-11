@@ -97,6 +97,7 @@ export default {
       this.loading = true;
       if (i.id == "defaultTeam") i.id = "default";
       this.$store.dispatch("applicationGetViews", i.id).then((i) => {
+        console.log(i);
         this.loading = false;
         this.viewList = i;
       });

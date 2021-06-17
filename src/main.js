@@ -18,9 +18,9 @@ import "animate.css";
 locale.use(lang)
 
 Vue.config.productionTip = false
+Vue.use(Antd)
 Vue.use(ElementUI)
 Vue.use(VueClipboard)
-Vue.use(Antd)
 
 /* eslint-disable no-new */
 new Vue({
