@@ -115,6 +115,9 @@ export default {
             if (this.$store.getters.serviceType === 18) {
                 this.$store.dispatch('getForms', this.$store.getters.serviceCatalog)
             }
+            if (this.$store.getters.serviceType === 22) {
+                console.log("获取应用列表");
+            }
         },
         cancelAddCatalog () {
             this.$store.commit('centerDialogVisible', false)

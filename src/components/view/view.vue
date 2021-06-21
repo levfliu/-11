@@ -1,7 +1,6 @@
 <template>
     <div class="view">
-        <empty-content v-if="viewId === 'list'" content="请新增或查看视图设计"></empty-content>
-        <div v-if="viewId !== 'list' && editView">
+        <div>
             <el-tabs style="width:1000px;" v-model="activeName" type="border-card">
                 <el-tab-pane label="基本设置" name="first">
                     <el-form style="width:835px;" :model="editView" label-width="180px">
@@ -386,7 +385,7 @@
                 <el-radio v-model="condition" :label="1">同时满足</el-radio>
                 <el-radio v-model="condition" :label="2">单个满足</el-radio>
             </div>
-            <div class="condition-list-box">
+            <!-- <div class="condition-list-box">
                 <div class="oneline" v-for="(i,id) in conditionListNow" :key="id">
                     <el-select v-model="i.column" size="small">
                         <el-option :label="i.label" :value="i.label" v-for="(i,id) in $store.getters.fieldList" :key="id"></el-option>
@@ -411,7 +410,7 @@
                     <i @click="removeConditionItem(id)" class="el-icon-remove" style="color:red;font-size:28px;position:relative;top:6px;"></i>
                 </div>
                 <el-button size="small" @click="addConditionItem" type="primary">+添加</el-button>
-            </div>            
+            </div>             -->
             <template #footer>
                 <span class="dialog-footer">
                 <el-button @click="conditionShow = false">取 消</el-button>
@@ -815,6 +814,7 @@ export default {
         }
     },
     created () {
+        console.log("芜湖，起飞📡๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊๊");
     }
 }
 </script>

@@ -7,7 +7,7 @@
       default-expand-all
       :highlight-current="true"
       :check-on-click-node="true"
-      :current-node-key="currentTriggerId"
+      :current-node-key="currentViewId"
       :expand-on-click-node="false"
       :props="defaultProps"
     >
@@ -60,8 +60,8 @@ export default {
   },
   components: {},
   computed: {
-    currentTriggerId() {
-      return "";
+    currentViewId() {
+      return this.$store.getters.viewId;
     },
     treeData() {
       var viewList = this.$store.getters.views;
@@ -93,7 +93,9 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.$store.dispatch("deleteView", data.id);
+          this.$store.dispatch("deleteView", data.id).then((i) => {
+            this.initViews();
+          });
         })
         .catch(() => {
           this.$message({
@@ -123,14 +125,14 @@ export default {
         view_name: "新增视图",
         id: "e4f90c0a9d87427297388119c5283a37",
         objectId: "44eb5c42-fe24-4905-b4e3-1329ff565467",
-        formName:"表单名字",
+        formName: "表单名字",
         data_auth_type: "3",
         is_show: true,
         catalog_id: "default",
         show_name: "新增视图",
         is_show_page: true,
         follow_apply: false,
-        formViewColumnMappingList: [],
+        formViewColumnMappingList: "",
         formViewDisplay: [],
         conditionList: [],
         has_article_source: false,
@@ -184,13 +186,16 @@ export default {
         formViewButtons: [],
         is_export_asset_property: [],
         listPage: false,
-        formViewColumns:[],
-        export_file_name_fixed_value:""
+        formViewColumns: [],
+        export_file_name_fixed_value: "",
+        export_file_name_type: "",
+        export_file_type: "",
+        variable_data_type: "",
       };
       newView.id = guid();
       newView.objectId = this.$store.getters.objectId;
       newView.formName = this.$route.query.formName;
-    //   this.$store.commit("pushView", newView);
+      //   this.$store.commit("pushView", newView);
       this.$store.commit("editView", newView);
       this.$store.commit("viewId", newView.id);
       //   this.$router.push({
@@ -201,6 +206,18 @@ export default {
       //     query: this.$route.query,
       //   });
     },
+    initViews() {
+      this.$store.dispatch("getViews").then((resp) => {
+        if (resp.length == 0) {
+          this.addView();
+        } else {
+          const nowView = JSON.parse(JSON.stringify(resp[0]));
+          console.log(nowView);
+          this.$store.commit("editView", nowView);
+          this.$store.commit("viewId", nowView.id);
+        }
+      });
+    },
   },
   mounted() {
     if (this.$route.query.type && this.$route.query.formId) {
@@ -208,8 +225,7 @@ export default {
       this.$store.dispatch("getFields", this.$route.query.formId);
       this.$store.commit("viewType", this.$route.query.type);
     }
-    this.$store.dispatch("getViews");
-    // console.log(guid("_"));
+    this.initViews();
   },
 };
 </script>

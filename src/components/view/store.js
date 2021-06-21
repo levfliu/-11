@@ -49,26 +49,23 @@ const actions = {
                 id: id
             }
         }
-        FormView('deleteFormView', params)
-            .then(resp => {
-                commit('deleteView', id)
-                commit("objectId", "xx")
-                commit("viewId", "list")
-                commit("viewType", "form")
-                commit("editView", {
-                    id: '',
-                    name: ''
+        return new Promise((resolve, reject) => {
+            FormView('deleteFormView', params)
+                .then(resp => {
+                    Message({
+                        message: '删除成功',
+                        type: 'success'
+                    })
+                    resolve()
                 })
-                Message({
-                    message: '删除成功',
-                    type: 'success'
+                .catch(err => {
+                    console.log(err)
+                    reject()
                 })
-            })
-            .catch(err => {
-                console.log(err)
-            })
+
+        })
     },
-    updateView: ({ commit }) => {
+    updateView: ({ commit, dispatch }) => {
         var params = []
         if (state.views.findIndex(t => t.id === state.editView.id) > -1) {
             params = {
@@ -77,7 +74,7 @@ const actions = {
             state.editView
             FormView('updateFormView', params)
                 .then(resp => {
-                    commit('updateView', resp)
+                    dispatch("getViews")
                     Message({
                         message: '更新成功',
                         type: 'success'
@@ -92,7 +89,8 @@ const actions = {
             }
             FormView('addFormView', params)
                 .then(resp => {
-                    commit('pushView', resp)
+                    // commit('pushView', resp)
+                    dispatch("getViews")
                     Message({
                         message: '添加成功',
                         type: 'success'
@@ -123,24 +121,6 @@ const mutations = {
     },
     viewType(state, data) {
         state.viewType = data
-    },
-
-
-    pushView(state, data) {
-        state.views.push(data)
-    },
-    updateView(state, data) {
-        var index = state.views.findIndex(s => s.id === data.id)
-        if (index > -1) {
-            state.views.splice(index, 1)
-            state.views.splice(index, 0, data)
-        }
-    },
-    deleteView(state, id) {
-        var index = state.views.findIndex(t => t.id === id)
-        if (index > -1) {
-            state.views.splice(index, 1)
-        }
     }
 }
 

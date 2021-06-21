@@ -4,6 +4,9 @@ import * as storage from './storage.js'
 Vue.use(VueResource)
 const http = Vue.http
 
+// 查询app
+
+
 //查询字段
 const fields = function (paramsObj) {
     const url = process.env.BASE_URI + 'metadata/queryList/fields'

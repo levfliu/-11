@@ -66,6 +66,16 @@ const state = {
 }
 
 const actions = {
+    getApps: ({ commit },catalog) => {
+        var params = {
+            jsonFilter: {
+                catalogId: catalog
+            }
+        }
+        return new Promise((resolve,reject)=>{
+            
+        })
+    },
     getForms: ({ commit }, catalog) => {
         var params = {
             jsonFilter: {
@@ -73,17 +83,18 @@ const actions = {
             }
         }
         return new Promise((resolve, reject) => {
-        queryFormRecord('queryForm/5de2ab2b00b5f31ff6d54a1dc7ee7fb2/5b174e99930cb2e0101df7d3', params)
-            .then(resp => {
-                commit('serviceAddFormRecord', {
-                    type: 18,
-                    records: resp})
-                resolve(resp)
-            })
-            .catch(err => {
-                console.log(err)
-                reject(err)
-            })
+            queryFormRecord('queryForm/5de2ab2b00b5f31ff6d54a1dc7ee7fb2/5b174e99930cb2e0101df7d3', params)
+                .then(resp => {
+                    commit('serviceAddFormRecord', {
+                        type: 18,
+                        records: resp
+                    })
+                    resolve(resp)
+                })
+                .catch(err => {
+                    console.log(err)
+                    reject(err)
+                })
         })
     },
     deleteForm: ({ commit }, formId) => {
@@ -97,13 +108,14 @@ const actions = {
                 commit('deleteForm', formId)
                 Message({
                     message: '删除成功',
-                    type: 'success'})
+                    type: 'success'
+                })
             })
             .catch(err => {
                 console.log(err)
             })
     },
-    getServiceRecord: ({ commit }, {type, catalog}) => {
+    getServiceRecord: ({ commit }, { type, catalog }) => {
         var params = {
             condition: {
                 catalog: catalog,
@@ -114,7 +126,8 @@ const actions = {
             .then(resp => {
                 commit('serviceAddRecord', {
                     type: type,
-                    records: resp})
+                    records: resp
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -131,7 +144,8 @@ const actions = {
                 commit('deleteCatalog', catalog)
                 Message({
                     message: '删除成功',
-                    type: 'success'})
+                    type: 'success'
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -150,7 +164,7 @@ const actions = {
                 console.log(err)
             })
     },
-    getCatalogs: ({ commit }, {type}) => {
+    getCatalogs: ({ commit }, { type }) => {
         var params = {
             condition: {
                 level: 0,
@@ -171,7 +185,8 @@ const actions = {
             .then(resp => {
                 commit('serviceCatalogs', {
                     type: type,
-                    catalogs: resp})
+                    catalogs: resp
+                })
             })
             .catch(err => {
                 console.log(err)
@@ -180,7 +195,7 @@ const actions = {
 }
 
 const mutations = {
-    deleteForm (state, formId) {
+    deleteForm(state, formId) {
         var serviceIndex = state.serviceList.findIndex(s => s.type === 18)
         var srsIndex = state.serviceList[serviceIndex].serviceRecords.findIndex(a => a.id === formId)
         state.serviceList[serviceIndex].serviceRecords.splice(srsIndex, 1)
@@ -188,13 +203,12 @@ const mutations = {
         state.serviceType = -1
         state.serviceType = value
     },
-    serviceAddFormRecord (state, data) {
+    serviceAddFormRecord(state, data) {
         var service = state.serviceList.find(t => t.type === data.type)
         if (!data.records) {
             data.records = []
         }
-        if (typeof(service) == "undefined")
-        {
+        if (typeof (service) == "undefined") {
             return;
         }
         service.serviceRecords = []
@@ -202,27 +216,27 @@ const mutations = {
         state.serviceType = -1
         state.serviceType = data.type
     },
-    serviceCatalog (state, data) {
+    serviceCatalog(state, data) {
         state.serviceCatalog = data
     },
-    deleteCatalog (state, data) {
+    deleteCatalog(state, data) {
         var serviceIndex = state.serviceList.findIndex(s => s.type === data.type)
         var catalogs = state.serviceList[serviceIndex].catalogs
         deleteTreeItem(data, catalogs, 'id', 'id', 'children')
     },
-    addCatalog (state, data) {
+    addCatalog(state, data) {
         var serviceIndex = state.serviceList.findIndex(s => s.type === data.type)
         var catalogs = state.serviceList[serviceIndex].catalogs
         addTreeItem(data, catalogs, 'id', 'parentId', 'children')
         state.centerDialogVisible = false
     },
-    centerDialogVisible (state, data) {
+    centerDialogVisible(state, data) {
         state.centerDialogVisible = data
     },
-    serviceType (state, data) {
+    serviceType(state, data) {
         state.serviceType = data
     },
-    serviceCatalogs (state, data) {
+    serviceCatalogs(state, data) {
         var serviceIndex = state.serviceList.findIndex(s => s.type === data.type)
         if (serviceIndex < 0) {
             return
@@ -234,7 +248,7 @@ const mutations = {
         state.serviceType = -1
         state.serviceType = data.type
     },
-    addService (state, data) {
+    addService(state, data) {
         var index = state.serviceList.findIndex(s => s.type === data.type)
         if (index < 0) {
             state.serviceList.push(data)
@@ -242,31 +256,31 @@ const mutations = {
             state.serviceList[index] = data
         }
     },
-    systemFunction (state, data) {
+    systemFunction(state, data) {
         state.systemFunction = data
     },
-    showOverviewList (state, data) {
+    showOverviewList(state, data) {
         state.systemFunction[data].showDetail = false
     },
-    closeOverviewList (state, data) {
+    closeOverviewList(state, data) {
         state.systemFunction[data].showDetail = true
     }
 }
 
 const getters = {
-    serviceCatalog (state) {
+    serviceCatalog(state) {
         return state.serviceCatalog
     },
-    centerDialogVisible (state) {
+    centerDialogVisible(state) {
         return state.centerDialogVisible
     },
-    serviceType (state) {
+    serviceType(state) {
         return state.serviceType
     },
-    serviceList (state) {
+    serviceList(state) {
         return state.serviceList
     },
-    systemFunction (state) {
+    systemFunction(state) {
         return state.systemFunction
     }
 }
