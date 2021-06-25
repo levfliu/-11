@@ -26,7 +26,12 @@
           </a-menu>
         </a-dropdown>
       </div>
-      <div class="right"></div>
+      <div class="right">
+        <a-button class="view-btn" @click="previewApplication">预览</a-button>
+        <a-button type="primary" class="save-btn" @click="saveApplication"
+          >保存</a-button
+        >
+      </div>
     </div>
     <div class="main">
       <a-layout id="components-layout-demo-custom-trigger" style="height: 100%">
@@ -257,6 +262,11 @@ export default {
     };
   },
   methods: {
+    previewApplication() {},
+    saveApplication() {
+      console.log("save");
+      this.$store.dispatch("saveApp");
+    },
     clearViewList() {
       this.viewList = [];
     },
@@ -382,6 +392,11 @@ export default {
     }
     this.$store.commit("serviceType", typeValue);
     this.$store.dispatch("getCatalogs", { type: typeValue });
+    if (this.$route.query.type == "create") {
+      this.$store.commit("appType", "create");
+      this.editApp.id = this.$route.query.appId;
+    }
+    console.log(this.editApp);
   },
 };
 </script>

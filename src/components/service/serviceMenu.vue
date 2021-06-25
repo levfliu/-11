@@ -117,6 +117,7 @@ export default {
             }
             if (this.$store.getters.serviceType === 22) {
                 console.log("获取应用列表");
+                this.$store.dispatch("getApps","all")
             }
         },
         cancelAddCatalog () {

@@ -83,6 +83,22 @@
         }
         .right {
             flex: 10;
+            text-align: right;
+            padding: 0 20px 0 0;
+            .view-btn {
+                width: 80px;
+                color: #fff;
+                font-size: 14px;
+                border: 1px solid hsla(0, 0%, 100%, 0.2);
+                background-color: transparent;
+            }
+            .save-btn {
+                background-color: #0454f2;
+                width: 80px;
+                margin-left: 14px;
+                font-size: 14px;
+                border: none;
+            }
         }
     }
     .main {

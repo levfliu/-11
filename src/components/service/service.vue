@@ -82,7 +82,8 @@ export default {
                 var appId = guid()
                 this.$router.push({
                     name:"createApp",
-                    params: {
+                    query:{
+                        type:"create",
                         appId:appId
                     }
                 })

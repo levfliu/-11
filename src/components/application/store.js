@@ -894,10 +894,40 @@ const app = {
 const state = {
     appId: "",
     editApp: app,
-    siderMenu
+    siderMenu,
+    appType: "create",//create or edit
 }
 
 const actions = {
+    saveApp: ({ commit }) => {
+        const params = {
+            params: {
+                jsonDocs: state.editApp
+            }
+        }
+        if (state.appType == "create") {
+            return new Promise((resolve, reject) => {
+                FormView("addApp", params)
+                    .then(resp => {
+                        resolve()
+                    })
+                    .catch(err => {
+                        reject()
+                    })
+            })
+        }
+        else if (appType == "edit") {
+            return new Promise((resolve, reject) => {
+                FormView("updateApp", params)
+                    .then(resp => {
+                        resolve()
+                    })
+                    .catch(err => {
+                        reject()
+                    })
+            })
+        }
+    },
     applicationGetViews: ({ commit }, catalog) => {
         var params = {
             jsonFilter: {
@@ -918,15 +948,12 @@ const actions = {
 }
 
 const mutations = {
-    appId(state, appId) {
-        state.appId = appId
+    appType(stae, type) {
+        state.appType = type
     }
 }
 
 const getters = {
-    appId() {
-        return state.appId
-    },
     editApp() {
         return state.editApp
     },

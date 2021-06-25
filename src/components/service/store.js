@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { queryRecord, insertRecord, deleteRecord, queryFormRecord, deleteFormRecord } from '../../util/server.js'
+import { queryRecord, insertRecord, deleteRecord, queryFormRecord, deleteFormRecord, FormView } from '../../util/server.js'
 import { addTreeItem, guid, deleteTreeItem } from '../../util/func.js'
 import { Message } from 'element-ui'
 
@@ -66,14 +66,27 @@ const state = {
 }
 
 const actions = {
-    getApps: ({ commit },catalog) => {
+    getApps: ({ commit }, id) => {
         var params = {
-            jsonFilter: {
-                catalogId: catalog
+            jsonFilter: {}
+        }
+        if (id != "all") {
+            params = {
+                jsonFilter: {
+                    id: id
+                }
             }
         }
-        return new Promise((resolve,reject)=>{
-            
+        return new Promise((resolve, reject) => {
+            FormView("queryApp", params)
+                .then(resp => {
+                    console.log(resp);
+                    resolve(resp)
+                })
+                .catch(err => {
+                    console.log(err);
+                    reject()
+                })
         })
     },
     getForms: ({ commit }, catalog) => {
