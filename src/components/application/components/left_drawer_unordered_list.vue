@@ -20,7 +20,7 @@
       </div>
       <div class="tree">
         <el-tree
-          :data="treeData"
+          :data="treeData_"
           :props="defaultProps"
           node-key="id"
           :highlight-current="true"
@@ -84,11 +84,34 @@ export default {
         children: "children",
         label: "name",
       },
+      treeData_: [],
     };
   },
+  watch: {
+    choosed(val) {
+      if (val == "left") {
+        this.treeData_ = this.treeData;
+        this.viewList = [];
+      } else {
+        this.treeData_ = [];
+        this.viewList = [];
+      }
+    },
+    treeData(val) {
+      if (this.choosed == "left") {
+        this.treeData_ = val;
+        this.viewList = [];
+      } else {
+        this.treeData_ = [];
+        this.viewList = [];
+      }
+    },
+  },
+  computed: {},
   props: ["treeData"],
   methods: {
     chooseOne(i) {
+      console.log(i);
       this.$emit("chooseOne", i);
     },
     onSearch() {},
@@ -97,11 +120,13 @@ export default {
       this.loading = true;
       if (i.id == "defaultTeam") i.id = "default";
       this.$store.dispatch("applicationGetViews", i.id).then((i) => {
-        console.log(i);
         this.loading = false;
         this.viewList = i;
       });
     },
+  },
+  mounted() {
+    this.viewList = [];
   },
 };
 </script>

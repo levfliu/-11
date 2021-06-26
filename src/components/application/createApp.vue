@@ -259,6 +259,7 @@ export default {
       siderShow: false,
       leftDrawerShow: false,
       viewList: [],
+      treeData: [],
     };
   },
   methods: {
@@ -284,8 +285,23 @@ export default {
       this.viewList.push(oneView);
     },
     onLeftDrawerShow(i) {
-      this.leftDrawerShow = true;
-      // 加载treedata
+      console.log(i.icon);
+      switch (i.icon) {
+        case "unordered-list":
+        case "file-text":
+        case "mobile":
+          this.leftDrawerShow = true;
+          // 加载treedata
+          this.$store
+            .dispatch("applicationgetCatalogs", { type: null })
+            .then((resp) => {
+              this.treeData = resp;
+            });
+
+          break;
+        default:
+          this.leftDrawerShow = false;
+      }
     },
     onLeftDrawerClose() {
       this.leftDrawerShow = false;
@@ -349,23 +365,28 @@ export default {
     siderMenu() {
       return this.$store.getters.siderMenu;
     },
-    treeData() {
-      var type = this.$store.getters.serviceType;
-      var service = this.$store.getters.serviceList.find(
-        (s) => s.type === type
-      );
-      if (service && service.catalogs) {
-        return service.catalogs;
-      } else {
-        return [];
-      }
-    },
+    // treeData() {
+    //   // var type = this.$store.getters.serviceType;
+    //   var type = 22;
+    //   var service = this.$store.getters.serviceList.find(
+    //     (s) => s.type === type
+    //   );
+    //   console.log(type, service);
+    //   if (service && service.catalogs) {
+    //     return service.catalogs;
+    //   } else {
+    //     return [];
+    //   }
+    // },
   },
   mounted() {
-    setTimeout(() => {
-      this.leftDrawerShow = true;
-      //   this.initPageShow = true;
-    }, 1000);
+    // setInterval(() => {
+    //   console.log(this.$store.getters.serviceList);
+    // }, 2000);
+    // setTimeout(() => {
+    //   this.leftDrawerShow = true;
+    //   //   this.initPageShow = true;
+    // }, 1000);
     // 获取所有的视图view
     // 1先获取所有form id，组成数组
     // this.$store.dispatch("getForms", "defaultTeam").then((i) => {
@@ -384,19 +405,11 @@ export default {
       this.$store.commit("serviceCatalog", this.$route.query.catalog);
     }
 
-    var typeValue;
-    if (!this.$route.query.type || this.$route.query.type === null) {
-      typeValue = 0;
-    } else {
-      typeValue = parseInt(this.$route.query.type);
-    }
-    this.$store.commit("serviceType", typeValue);
-    this.$store.dispatch("getCatalogs", { type: typeValue });
     if (this.$route.query.type == "create") {
       this.$store.commit("appType", "create");
       this.editApp.id = this.$route.query.appId;
     }
-    console.log(this.editApp);
+    // console.log(this.editApp);
   },
 };
 </script>

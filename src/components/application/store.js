@@ -1,4 +1,4 @@
-import { insertFormRecord, updateFormRecord, queryFormRecord, formDataAction, FormView } from '../../util/server.js'
+import { queryRecord, insertFormRecord, updateFormRecord, queryFormRecord, formDataAction, FormView } from '../../util/server.js'
 import { Message } from 'element-ui'
 
 const siderMenu = [
@@ -896,6 +896,7 @@ const state = {
     editApp: app,
     siderMenu,
     appType: "create",//create or edit
+    appCatalog: []
 }
 
 const actions = {
@@ -941,6 +942,33 @@ const actions = {
                 })
                 .catch(err => {
                     reject(err)
+                })
+        })
+    },
+    applicationgetCatalogs: ({ commit }, { type }) => {
+        var params = {
+            condition: {
+                level: 0,
+                $or: [{
+                    type: 0
+                }, {
+                    type: type
+                }]
+            },
+            options: {
+                isSerchSubItem: true,
+                sort: {
+                    sort: 1
+                }
+            }
+        }
+        return new Promise((resolve, reject) => {
+            queryRecord('catalog', params)
+                .then(resp => {
+                    resolve(resp)
+                })
+                .catch(err => {
+                    reject()
                 })
         })
     }

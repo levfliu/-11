@@ -88,8 +88,6 @@ export default {
                     }
                 })
             }
-            console.log(this.$store.getters.serviceType);
-            console.log(this.$route);
         }
     }
 }
