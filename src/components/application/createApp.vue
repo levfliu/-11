@@ -135,7 +135,11 @@
         <div class="left">
           <div class="new_app_info">
             <div class="new_app_info_name">应用名称：</div>
-            <a-input placeholder="请输入应用名称"></a-input>
+            <a-input
+              v-model="editApp.name"
+              style="color: white"
+              placeholder="请输入应用名称"
+            ></a-input>
             <div class="new_app_info_name new_app_info_name_last_child">
               应用描述：
             </div>
@@ -230,7 +234,7 @@
             >
               <span>关 闭</span>
             </button>
-            <button type="button" class="ant-btn btn-new">
+            <button type="button" @click="initCreate" class="ant-btn btn-new">
               <span>创 建</span>
             </button>
           </div>
@@ -262,10 +266,28 @@ export default {
       treeData: [],
     };
   },
+  watch: {
+    viewList(_new) {
+      this.editApp.test_data_app_list_view_list = _new;
+    },
+  },
   methods: {
+    initCreate() {
+      if (this.editApp.name == "") {
+        this.$message({
+          type: "warning",
+          message: "请输入应用名称",
+        });
+      } else {
+        this.initPageShow = false;
+      }
+    },
     previewApplication() {},
     saveApplication() {
-      console.log("save");
+        this.$message({
+          type: "success",
+          message: "保存成功",
+        });
       this.$store.dispatch("saveApp");
     },
     clearViewList() {
@@ -380,13 +402,9 @@ export default {
     // },
   },
   mounted() {
-    // setInterval(() => {
-    //   console.log(this.$store.getters.serviceList);
-    // }, 2000);
-    // setTimeout(() => {
-    //   this.leftDrawerShow = true;
-    //   //   this.initPageShow = true;
-    // }, 1000);
+    this.$nextTick((_) => {
+      this.initPageShow = true;
+    });
     // 获取所有的视图view
     // 1先获取所有form id，组成数组
     // this.$store.dispatch("getForms", "defaultTeam").then((i) => {

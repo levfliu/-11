@@ -63,6 +63,9 @@ export default {
             if (this.$store.getters.serviceType === 18) {
                 this.$store.dispatch('getForms', this.$store.getters.serviceCatalog)
             }
+            if (this.$store.getters.serviceType === 22) {
+                this.$store.dispatch('getApps', "all")
+            }
         },
         handleAdd () {
             if (this.$store.getters.serviceType === 0) {

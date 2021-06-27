@@ -80,12 +80,28 @@ const actions = {
         return new Promise((resolve, reject) => {
             FormView("queryApp", params)
                 .then(resp => {
-                    console.log(resp);
                     resolve(resp)
                 })
                 .catch(err => {
                     console.log(err);
                     reject()
+                })
+        })
+    },
+    deleteApp: ({ commit }, appId) => {
+        var params = {
+            jsonFilter: {
+                id: appId
+            }
+        }
+        return new Promise((resolve, reject) => {
+            FormView("deleteApp", params)
+                .then(resp => {
+                    resolve(resp)
+                })
+                .catch(err => {
+                    console.log(err);
+                    reject(resp)
                 })
         })
     },

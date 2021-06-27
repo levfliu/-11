@@ -22,10 +22,12 @@ const app = {
     _id: "60bc7a766bb9ba48640efbb8",
     isBaseLine: false,
     id: "767852d4-4d9c-4aba-8b88-9ba878de2efc",
-    name: "销售通演示demo",
+    name: "",
     auth: '[{"empower_type":"all"}]',
     catalog_id: "undefined",
     terminal_type: "webPhone",
+    // 测试用数据(视图列表页)
+    test_data_app_list_view_list: [],
     datapp_configs: [
         {
             type: "styleConfig",
@@ -902,9 +904,7 @@ const state = {
 const actions = {
     saveApp: ({ commit }) => {
         const params = {
-            params: {
-                jsonDocs: state.editApp
-            }
+            jsonDocs: state.editApp
         }
         if (state.appType == "create") {
             return new Promise((resolve, reject) => {
