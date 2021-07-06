@@ -103,7 +103,7 @@ const state = {
             ]
         },
         {
-            label: '布局设计',
+            label: '布局组件',
             icon: 'el-icon-menu',
             items: [
                 {
@@ -119,8 +119,20 @@ const state = {
                     name: 'el-row'
                 },
                 {
-                    label: '步骤',
+                    label: '步骤条',
                     name: 'el-steps'
+                },
+                {
+                    label: '群组',
+                    name: 'el-group'
+                },
+                {
+                    label: '分隔线',
+                    name: 'el-dividing'
+                },
+                {
+                    label: '空白占位',
+                    name: 'el-space'
                 }
             ]
         },
@@ -129,8 +141,24 @@ const state = {
             icon: 'el-icon-s-marketing',
             items: [
                 {
-                    label: '输入框',
-                    name: 'el-input'
+                    label: '下拉多选框',
+                    name: 'el-multiple'
+                },
+                {
+                    label: '图片上传',
+                    name: 'el-pickupload'
+                },
+                {
+                    label: '树形下拉框',
+                    name: 'el-treeselect'
+                },
+                {
+                    label: '文件上传',
+                    name: 'el-fileupload'
+                },
+                {
+                    label: '日历选择',
+                    name: 'el-calendar'
                 }
             ]
         },
@@ -139,8 +167,16 @@ const state = {
             icon: 'el-icon-s-management',
             items: [
                 {
-                    label: '输入框',
-                    name: 'el-input'
+                    label: '用户',
+                    name: 'el-user'
+                },
+                {
+                    label: '部门',
+                    name: 'el-office'
+                },
+                {
+                    label: '自动编号',
+                    name: 'el-autocode'
                 }
             ]
         }
